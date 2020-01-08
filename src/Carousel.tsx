@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-type Props = {imgUrls: Array<{}>}
+type Props = {imgUrls: Array<string>}
 
 const ImageSlide = ({url}) => {
   console.log(url)
@@ -9,7 +9,7 @@ const ImageSlide = ({url}) => {
     backgroundImage: `url(${url})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    height: '800px',
+    height: '400px',
     transition: 'background-image .3s ease-in-out',
   }
 
@@ -26,18 +26,24 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
   </div>
 )
 
-const ImageList = (imgUrls: Pick<Props, 'imgUrls'>) => {
+const ImageList = ({imgUrls, callback}) => {
+
   const styles = {
+    flex: '0 0 auto',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: '200px',
+    width: '200px',
     transition: 'background-image .3s ease-in-out',
+    minWidth: '0',
   }
 
   return (
-    imgUrls.map(url => {
-      return <div className="image-list" style={{backgroundImage:url, ...styles}} />
-    })
+    <ul className="image-list">
+      {imgUrls.map((url, index) => {
+        return <li style={{backgroundImage: `url(${url})`, ...styles}} onClick={() => callback(index)} />
+      })}
+    </ul>
   )
 }
 
@@ -64,10 +70,8 @@ const Carousel = (props: Props) => {
         direction="left"
         clickFunction={ previousSlide }
         glyph="&#9664;" />
-
       <ImageSlide url={ props.imgUrls[currentImageIndex] } />
-      <ImageList imgUrls={ props.imgUrls} />
-
+      <ImageList imgUrls={props.imgUrls} callback={setCurrentImageIndex} />
       <Arrow
         direction="right"
         clickFunction={ nextSlide }
