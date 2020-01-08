@@ -1,14 +1,16 @@
 import * as React from 'react'
 
+type Props = {imgUrls: Array<{}>}
+
 const ImageSlide = ({url}) => {
   console.log(url)
 
   const styles = {
-	backgroundImage: `url(${url})`,
-	backgroundSize: 'cover',
-	backgroundPosition: 'center',
+    backgroundImage: `url(${url})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
     height: '800px',
-	transition: 'background-image .3s ease-in-out',
+    transition: 'background-image .3s ease-in-out',
   }
 
   return (
@@ -24,7 +26,20 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
   </div>
 )
 
-type Props = {imgUrls: Array<{}>}
+const ImageList = (imgUrls: Pick<Props, 'imgUrls'>) => {
+  const styles = {
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: '200px',
+    transition: 'background-image .3s ease-in-out',
+  }
+
+  return (
+    imgUrls.map(url => {
+      return <div className="image-list" style={{backgroundImage:url, ...styles}} />
+    })
+  )
+}
 
 const Carousel = (props: Props) => {
   const [currentImageIndex, setCurrentImageIndex] = React.useState<number>(0)
@@ -51,6 +66,7 @@ const Carousel = (props: Props) => {
         glyph="&#9664;" />
 
       <ImageSlide url={ props.imgUrls[currentImageIndex] } />
+      <ImageList imgUrls={ props.imgUrls} />
 
       <Arrow
         direction="right"
