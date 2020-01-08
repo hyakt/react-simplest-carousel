@@ -26,7 +26,7 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
   </div>
 )
 
-const ImageList = ({imgUrls, callback}) => {
+const ThumbnailList = ({imgUrls, callback}) => {
 
   const styles = {
     flex: '0 0 auto',
@@ -34,14 +34,21 @@ const ImageList = ({imgUrls, callback}) => {
     backgroundPosition: 'center',
     height: '200px',
     width: '200px',
-    transition: 'background-image .3s ease-in-out',
+    transition: 'transform 100ms ease-out',
     minWidth: '0',
+  }
+
+  const [style, setStyle] = React.useState(styles)
+
+  const onClick = (index) => {
+    callback(index)
+    setStyle({...styles, ...{transform: `translate3d(${index * -180}px, 0, 0)`}})
   }
 
   return (
     <ul className="image-list">
       {imgUrls.map((url, index) => {
-        return <li style={{backgroundImage: `url(${url})`, ...styles}} onClick={() => callback(index)} />
+        return <li style={{backgroundImage: `url(${url})`, ...style}} onClick={() => onClick(index)} />
       })}
     </ul>
   )
@@ -71,7 +78,7 @@ const Carousel = (props: Props) => {
         clickFunction={ previousSlide }
         glyph="&#9664;" />
       <ImageSlide url={ props.imgUrls[currentImageIndex] } />
-      <ImageList imgUrls={props.imgUrls} callback={setCurrentImageIndex} />
+      <ThumbnailList imgUrls={props.imgUrls} callback={setCurrentImageIndex} />
       <Arrow
         direction="right"
         clickFunction={ nextSlide }
