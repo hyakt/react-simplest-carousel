@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef, ReactElement} from 'react'
 import styles from './Carousel.module.scss'
 
-type Props = {elements: Array<{}>}
+interface Props {elements: Array<ReactElement>}
 
 const Gallery = ({element}) => {
   return (
@@ -19,37 +19,60 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
   </div>
 )
 
-const calculateOffsetX = (containerWidth, elementsLength) => {
-  return containerWidth / elementsLength
-}
 
-const ThumbnailList = ({elements, callback}) => {
+
+const ThumbnailList = (
+  {elements, callback}: {elements: Array<ReactElement>, callback: (index: number) => void}
+) => {
   const [style, setStyle] = useState({});
-  const [containerWidth, setContainerWidth] = useState(0);
+  const [thumbnailsOffsetWidth, setThumbnailsOffsetWidth] = useState(0);
+  const [thumbnailsScrollWidth, setThumbnailsScrollWidth] = useState(0);
+  const [thumbnailsTranslate, setThumbnailsTranslate] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState(0);
 
   const ulList = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    setContainerWidth(ulList?.current?.offsetWidth || 0);
+    // 表示されている要素の幅
+    setThumbnailsOffsetWidth(ulList?.current?.offsetWidth || 0);
+    // スクロールできる要素の幅 要素あたりの幅 * length
+    setThumbnailsScrollWidth(ulList?.current?.scrollWidth || 0)
+    console.log('thumbnails container offsetWidth', ulList?.current?.offsetWidth || 0)
+    console.log('thumbnails container scrollWidth', ulList?.current?.scrollWidth || 0)
   }, [ulList.current]);
 
-  const thumbnailWidth = 100;
+  useEffect(() => {
+    setStyle({transform: `translate3d(${thumbnailsTranslate}px, 0, 0)`})
+  }, [thumbnailsTranslate])
 
-  const onClick = (index) => {
-    callback(index)
-    const offsetX = calculateOffsetX(containerWidth, elements.length) * -1 * index;
-    setStyle({transform: `translate3d(${offsetX}px, 0, 0`})
+  const onClick = (element: ReactElement, currentIndex: number): void => {
+    callback(currentIndex)
+    if( thumbnailsOffsetWidth <= thumbnailsScrollWidth || thumbnailsOffsetWidth <= 0){
+      // スクロール可能なトータルの量を計算
+      const totalScroll = thumbnailsScrollWidth - thumbnailsOffsetWidth
+      // indexあたりのスクロール量を計算
+      const perIndexScroll = totalScroll / elements.length
+      // 移動量を計算
+      const distance = perIndexScroll * Math.abs(previousIndex - currentIndex)
+
+      if (distance > 0) {
+        if (previousIndex < currentIndex) {
+          setThumbnailsTranslate(thumbnailsTranslate - distance);
+        } else if (previousIndex > currentIndex) {
+          setThumbnailsTranslate(thumbnailsTranslate + distance);
+        }
+      }
+      setPreviousIndex(currentIndex)
+    }
   }
 
   return (
     <div className={styles.thumbnailContainer}>
-      <ul ref={ulList} className={styles.thumbnailList}>
+      <ul ref={ulList} className={styles.thumbnailList} style={style}>
         {elements.map((element, index) => {
-          console.log(element)
           return (
             <li className={styles.thumbnailContent}
-                style={{...style}}
-                onClick={() => onClick(index)}>
+                onClick={() => onClick(element,index)}>
               {element}
             </li>
           )

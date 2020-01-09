@@ -5,7 +5,6 @@
 .gallery {
   height: 100%;
   width: 100%;
-  border: solid 3px #ccc;
 }
 
 .thumbnailContainer {
@@ -18,15 +17,14 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  border: solid 3px #ccc;
+  transition: transform 300ms ease-out;
 }
 
 .thumbnailContent {
   flex: 0 0 auto;
   width: 100px;
   height: 100px;
-  padding: 0 10px;
-  transition: transform 300ms ease-out;
+  /* padding: 0 10px; */
 }
 
 .slide-arrow {

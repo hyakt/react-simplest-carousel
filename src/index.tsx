@@ -16,7 +16,6 @@ const elements = () => [
   <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
   <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
   <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
 ]
 
 ReactDOM.render(<Carousel elements={elements()}/>, document.getElementById('root'))
