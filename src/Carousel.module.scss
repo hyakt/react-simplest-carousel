@@ -1,0 +1,46 @@
+.carousel {
+  height: 600px;
+}
+
+.gallery {
+  height: 100%;
+  width: 100%;
+  border: solid 3px #ccc;
+}
+
+.thumbnailContainer {
+  overflow-x: hidden;
+}
+
+.thumbnailList {
+  display: flex;
+  /* justify-content: space-around; */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: solid 3px #ccc;
+}
+
+.thumbnailContent {
+  flex: 0 0 auto;
+  width: 100px;
+  height: 100px;
+  padding: 0 10px;
+  transition: transform 300ms ease-out;
+}
+
+.slide-arrow {
+  color: blue;
+  cursor: pointer;
+  font-size: 2rem;
+  position: fixed;
+  top: 50%;
+}
+
+.slide-arrow.right {
+  right: 1rem;
+}
+
+.slide-arrow.left {
+  left: 1rem;
+}
