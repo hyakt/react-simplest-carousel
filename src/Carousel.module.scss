@@ -5,6 +5,7 @@
 .gallery {
   height: 100%;
   width: 100%;
+  transition: all 1s ease-out;
 }
 
 .thumbnailContainer {
@@ -24,7 +25,16 @@
   flex: 0 0 auto;
   width: 100px;
   height: 100px;
-  /* padding: 0 10px; */
+  border: 4px solid transparent;
+  margin-left: 2px;
+
+  &:first-child {
+    margin: 0;
+  }
+
+  &:hover{
+    border: 4px solid #ccc;
+  }
 }
 
 .slide-arrow {

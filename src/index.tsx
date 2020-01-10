@@ -6,16 +6,28 @@ import Carousel from './Carousel'
 const getRandomColorCode = () => `#${'0123456789ABCDEF'.split('').sort(() => 0.5 - Math.random()).slice(0,6).join('')}`
 
 const elements = () => [
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
-  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}} />,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>PDF</div>,
+  <div className='thumbnail-image' style={{background: `${getRandomColorCode()}`}}>画像</div>,
 ]
 
 ReactDOM.render(<Carousel elements={elements()}/>, document.getElementById('root'))

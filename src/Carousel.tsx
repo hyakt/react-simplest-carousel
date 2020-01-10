@@ -19,8 +19,6 @@ const Arrow = ({ direction, clickFunction, glyph }) => (
   </div>
 )
 
-
-
 const ThumbnailList = (
   {elements, callback}: {elements: Array<ReactElement>, callback: (index: number) => void}
 ) => {
@@ -45,8 +43,7 @@ const ThumbnailList = (
     setStyle({transform: `translate3d(${thumbnailsTranslate}px, 0, 0)`})
   }, [thumbnailsTranslate])
 
-  const onClick = (element: ReactElement, currentIndex: number): void => {
-    callback(currentIndex)
+  const scrollThumbnails = (currentIndex: number): void => {
     if( thumbnailsOffsetWidth <= thumbnailsScrollWidth || thumbnailsOffsetWidth <= 0){
       // スクロール可能なトータルの量を計算
       const totalScroll = thumbnailsScrollWidth - thumbnailsOffsetWidth
@@ -66,13 +63,32 @@ const ThumbnailList = (
     }
   }
 
+  const addBorderRect = (currentIndex: number): void => {
+    const liCollection = Array.from(ulList.current?.children as HTMLCollection)
+    liCollection.forEach((elm: Element) => {
+      console.log(elm)
+      elm.removeAttribute('style')
+    })
+
+    const targetNode = ulList.current?.children[currentIndex]
+    targetNode?.setAttribute('style', "border: 4px solid #333")
+  }
+
+  const onClick = (currentIndex: number): void => {
+    callback(currentIndex)
+    scrollThumbnails(currentIndex)
+    addBorderRect(currentIndex)
+  }
+
   return (
     <div className={styles.thumbnailContainer}>
-      <ul ref={ulList} className={styles.thumbnailList} style={style}>
+      <ul ref={ulList}
+          className={styles.thumbnailList}
+          style={style}>
         {elements.map((element, index) => {
           return (
             <li className={styles.thumbnailContent}
-                onClick={() => onClick(element,index)}>
+                onClick={() => onClick(index)} >
               {element}
             </li>
           )
