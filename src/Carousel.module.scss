@@ -8,13 +8,12 @@
   transition: all 1s ease-out;
 }
 
-.thumbnailContainer {
+.thumbnailsContainer {
   overflow-x: hidden;
 }
 
-.thumbnailList {
+.thumbnailsList {
   display: flex;
-  /* justify-content: space-around; */
   list-style: none;
   margin: 0;
   padding: 0;
@@ -31,24 +30,8 @@
   &:first-child {
     margin: 0;
   }
-
   &:hover{
     border: 4px solid #ccc;
   }
 }
 
-.slide-arrow {
-  color: blue;
-  cursor: pointer;
-  font-size: 2rem;
-  position: fixed;
-  top: 50%;
-}
-
-.slide-arrow.right {
-  right: 1rem;
-}
-
-.slide-arrow.left {
-  left: 1rem;
-}
